@@ -36,6 +36,6 @@ Meteor.methods ({
     if(! this.userId) {
       throw new Meteor.Error('not-authorized')
     }
-    Posts.update(postId, { $set: {text: this.post.text, name: this.post.name} })
+    Posts.update(postId, { $set: {text: this.posts.text, name: this.posts.name} })
   }
 })
