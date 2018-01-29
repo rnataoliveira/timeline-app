@@ -8,29 +8,34 @@ class CreatePost extends Component {
         super(props)
         this.state = {
             text: '',
-            image: '',
             name: '',
             author: ''
         }
     }
 
-    handleChange(event) {
+    // state = { text: '', image: '', name: '', author: '' }
+
+    handleTextChange(event) {
         event.preventDefault()
         this.setState({ text: event.target.value })
-        this.setState({ image: event.target.value })
+    }
+
+    handleNameChange(event) {
         this.setState({ name: event.target.value })
     }
 
     handleSubmit(event) {
         event.preventDefault()
+
         const { text } = this.state
-        const { image } = this.state
         const { name } = this.state
 
         let self = this
 
-        Meteor.call('posts.insert', text, (error, success) => {
-            error ? console.log(error) : self.setState({ text: ''})
+        Meteor.call('posts.insert', text, name, (error, success) => {
+            error ? console.log(error) : self.setState({ text: '', name: '' })
+            console.log(state)
+            console.log(props)
         })
     }
 
@@ -40,19 +45,22 @@ class CreatePost extends Component {
                 { this.props.currentUser ?
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
-                        <input type="text" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
-                                value={this.state.name} />
+                        <label htmlFor="exampleInputFile">Adicionar nome ao post</label>
+                        <input type="text" className="form-control-file"
+                            id="exampleInputFile" aria-describedby="fileHelp"
+                            value={this.state.name} onChange={this.handleNameChange.bind(this)}/>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <textarea className="form-control" id="exampleTextarea" rows="3"
-                            onChange={this.handleChange.bind(this)} 
-                            value={this.state.text}>
+                            onChange={this.handleTextChange.bind(this)}
+                            value={this.state.text}
+                            placeholder="Digite sua mensagem aqui...">
                         </textarea>
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputFile">imagem</label>
-                        <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
-                            value={this.state.image} onChange={this.handleChange.bind(this)} />
+                        <label htmlFor="exampleInputFile">Adicionar Imagem</label>
+                        <input type="file" className="form-control-file" id="exampleInputFile" 
+                            aria-describedby="fileHelp" />
                         <small id="fileHelp" className="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>

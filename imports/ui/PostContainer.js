@@ -6,7 +6,7 @@ import Post from './Post'
 
 const PostContainer = props => (props.posts.map(post=>
     <div className="container">
-        <Post key={post._id} name={post.name} text={post.text} image={post.image} author={post.author} createdAt={}/>
+        <Post key={post._id} name={post.name} text={post.text} image={post.image} author={post.author} createdAt={post.createdAt}/>
     </div>
 ))
 
