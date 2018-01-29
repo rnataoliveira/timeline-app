@@ -15,7 +15,7 @@ const App = props => (
         </header>
         <AccountUIWrapper />
         <CreatePost currentUser={props.currentUser}/>
-        <PostContainer posts={props.posts}/>
+        <PostContainer key={props._id} posts={props.posts}/>
     </div>
 )
 

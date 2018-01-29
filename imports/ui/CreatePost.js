@@ -34,8 +34,6 @@ class CreatePost extends Component {
 
         Meteor.call('posts.insert', text, name, (error, success) => {
             error ? console.log(error) : self.setState({ text: '', name: '' })
-            console.log(state)
-            console.log(props)
         })
     }
 
