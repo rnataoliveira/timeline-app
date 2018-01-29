@@ -13,8 +13,6 @@ class CreatePost extends Component {
         }
     }
 
-    // state = { text: '', image: '', name: '', author: '' }
-
     handleTextChange(event) {
         event.preventDefault()
         this.setState({ text: event.target.value })
@@ -27,8 +25,7 @@ class CreatePost extends Component {
     handleSubmit(event) {
         event.preventDefault()
 
-        const { text } = this.state
-        const { name } = this.state
+        const { text, name } = this.state
 
         let self = this
 

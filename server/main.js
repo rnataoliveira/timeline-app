@@ -17,10 +17,10 @@ Meteor.methods ({
     Posts.insert({
       text,
       name,
-      image,
-      author: Meteor.user().username,
+      owner: Meteor.userId(),
       createdAt: new Date(),
-      owner: Meteor.userId()
+      author: Meteor.user().username,
+      // image      
     });
   },
   'posts.remove'(postId) {
