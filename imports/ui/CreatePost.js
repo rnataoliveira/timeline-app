@@ -6,12 +6,14 @@ import PropTypes from 'prop-types'
 class CreatePost extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            text: '',
-            name: '',
-            author: ''
-        }
+        // this.state = {
+        //     text: '',
+        //     name: '',
+        //     author: ''
+        // }
     }
+
+    state = { text: '', name: '', author: '' }
 
     handleTextChange(event) {
         event.preventDefault()
@@ -19,6 +21,7 @@ class CreatePost extends Component {
     }
 
     handleNameChange(event) {
+        event.preventDefault()
         this.setState({ name: event.target.value })
     }
 
