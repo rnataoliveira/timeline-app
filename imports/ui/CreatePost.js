@@ -29,11 +29,12 @@ class CreatePost extends Component {
         event.preventDefault()
 
         const { text, name } = this.state
+        const author = this.props.currentUser
 
         let self = this
 
-        Meteor.call('posts.insert', text, name, (error, success) => {
-            error ? console.log(error) : self.setState({ text: '', name: '' })
+        Meteor.call('posts.insert', text, name, author, (error, success) => {
+            error ? console.log(error) : self.setState({ text: '', name: '', author: '' })
         })
     }
 
