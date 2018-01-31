@@ -6,11 +6,10 @@ import PropTypes from 'prop-types'
 class CreatePost extends Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     text: '',
-        //     name: '',
-        //     author: ''
-        // }
+        this.state = {
+            text: '',
+            name: ''
+        }
     }
 
     state = { text: '', name: '', author: '' }
@@ -29,12 +28,10 @@ class CreatePost extends Component {
         event.preventDefault()
 
         const { text, name } = this.state
-        const author = this.props.currentUser
-
         let self = this
 
-        Meteor.call('posts.insert', text, name, author, (error, success) => {
-            error ? console.log(error) : self.setState({ text: '', name: '', author: '' })
+        Meteor.call('posts.insert', text, name, (error, success) => {
+            error ? console.log(error) : self.setState({ text: '', name: '' })
         })
     }
 

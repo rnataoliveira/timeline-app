@@ -20,24 +20,39 @@ Meteor.methods ({
     const post = {
       text,
       name,
-      owner: Meteor.userId(),
+      authorId: Meteor.userId(),
       createdAt: new Date(),
-      author: Meteor.user().username
+      likes: []
     }
     Posts.insert(post)
   },
   'posts.remove'(_id) {
-    // console.log(_id)
-    // check(_id, Object)
-    // const currentPost = Posts.findOne(userId._id)
-    // if(!userId) {
-    //   throw new Meteor.Error('not-authorized')
-    // }
-    Posts.find({})
-    const post = this
-    Posts.remove({_id: post._id})
-    // Posts.remove({})
+    check(_id, String)
+    
+    return Posts.remove(_id)
   },
+  'posts.like'(_id) {
+    check(_id, String)
+
+    const authorId = Meteor.userId()
+
+    const post = Posts.findOne(_id)
+
+    if(!post.likes.some(like => like.authorId === authorId))
+      return Posts.update(_id, { 
+        ...post, 
+        likes: [...post.likes, { authorId, liked: true }] 
+      })
+    else
+      return Posts.update(_id, 
+        { ...post,
+          likes: post.likes.map(like => 
+            like.authorId === authorId 
+            ? 
+            { authorId, liked: !like.liked } : like
+          ) 
+        })
+  }
   // 'posts.update'({ userId, newName, newText }) {
   //   check(userId, Object)
   //   if(! this.userId) {
