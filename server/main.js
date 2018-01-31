@@ -38,6 +38,15 @@ Meteor.methods ({
 
     const post = Posts.findOne(_id)
 
+    // if(!post.likes.some(like => like.authorId === authorId))
+    //   totalLikes += 1
+    //   Posts.update(_id, {$push: {likes: [...post.likes, {authorId, liked}]}})
+    // else
+    //   Posts.update(_id, {$push: { ...post, likes: post.likes.map(like =>
+    //     like.authorId === authorId ?
+    //     { authorId, liked: !like.liked } : like)}})
+
+
     if(!post.likes.some(like => like.authorId === authorId))
       return Posts.update(_id, { 
         ...post, 
@@ -47,8 +56,7 @@ Meteor.methods ({
       return Posts.update(_id, 
         { ...post,
           likes: post.likes.map(like => 
-            like.authorId === authorId 
-            ? 
+            like.authorId === authorId ? 
             { authorId, liked: !like.liked } : like
           ) 
         })
@@ -67,6 +75,7 @@ Meteor.methods ({
           name: newName
         }
       })
+
   }
 })
 

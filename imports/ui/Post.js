@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom'
 import { Meteor } from 'meteor/meteor'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+// import { BrowserRouter, Route, Link } from 'react-router-dom'
 
-// import LikeButton from './LikeButton'
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaTrashO from 'react-icons/lib/fa/trash-o'
 import FaHeart from 'react-icons/lib/fa/heart'
 
-const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handleLike }) => (
+let countLikes = 0
+const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handleLike, handleUpdate, likesQuantity }) => (
     <div className="card mt-5 row" >
         {/* <img className="card-img-top" src='' alt="Card image cap"/> */}
         <div className="card-body">
@@ -18,9 +18,12 @@ const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handl
             <p className="card-text">{text}</p>
         </div>
         <div className="card-body">
-            <Link to={{ pathname: '/update/'`${_id}`}} className="card-link btn btn-primary sm col-md-2">
+            {handleUpdate &&
+            <a className="card-link btn btn-primary sm col-md-2"
+                href={`${_id}`}
+                onClick={handleUpdate}>
                 <FaEdit /> 
-            </Link>
+            </a>}
             
             {handleRemove && 
             <button className="card-link btn btn-primary sm col-md-2" 

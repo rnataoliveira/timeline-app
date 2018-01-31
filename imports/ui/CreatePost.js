@@ -12,7 +12,22 @@ class CreatePost extends Component {
         }
     }
 
-    state = { text: '', name: '', author: '' }
+    // handleTextUpdate(event) {
+    //     event.preventDefault()
+    //     event.setState({ text: Posts.text })
+        
+    // }
+
+    // handleNameUpdate() {
+    //     event.preventDefault()
+    //     event.setState({ name: Posts.name })
+    // }
+    
+    // handleUpdateSubmit() {
+    //     const Post = ({ _id, name, text, createdAt, authorId, handleUpdate }) => (
+    //         handleUpdate
+    //     )
+    // }
 
     handleTextChange(event) {
         event.preventDefault()
