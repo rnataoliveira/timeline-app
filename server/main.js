@@ -52,14 +52,22 @@ Meteor.methods ({
             { authorId, liked: !like.liked } : like
           ) 
         })
+  },
+  'posts.update'(_id, newText, newName) {
+    check(_id, String)
+    check(newText, String)
+    check(newName, String)
+  
+    const post = Posts.findOne(_id)
+
+    Posts.update(_id,
+      { $set: 
+        {
+          text: newText,
+          name: newName
+        }
+      })
   }
-  // 'posts.update'({ userId, newName, newText }) {
-  //   check(userId, Object)
-  //   if(! this.userId) {
-  //     throw new Meteor.Error('not-authorized')
-  //   }
-  //   Posts.update(postId, { $set: {text: newText, name: newName} })
-  // }
 })
 
   

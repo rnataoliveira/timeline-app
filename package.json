@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.38",
+    "babel-core": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "bootstrap": "^4.0.0",
@@ -14,7 +15,10 @@
     "moment": "^2.20.1",
     "popper.js": "^1.12.9",
     "react": "^16.2.0",
+    "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^16.2.0",
-    "react-icons": "^2.2.7"
+    "react-icons": "^2.2.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
   }
 }

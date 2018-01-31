@@ -7,7 +7,12 @@ import 'bootstrap'
 
 import './main.html'
 import App from '../imports/ui/App'
+import { BrowseRouter } from 'react-router-dom'
 
 Meteor.startup(() => {
-  render(<App />, document.getElementById('render-target'))
+  render((
+    <BrowseRouter>
+      <App />
+    </BrowseRouter>
+  ), document.getElementById('render-target'))
 })
