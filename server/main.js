@@ -70,5 +70,3 @@ Meteor.methods ({
     return Posts.update(_id, { $set: { name, text } })
   }
 })
-
-  
