@@ -10,7 +10,7 @@ Meteor.startup(() => {
 });
 
 Meteor.methods ({
-  'posts.insert'(name, text) {
+  'posts.insert'(name, text, image) {
     check(text, String)
     check(name, String)
 
@@ -23,8 +23,10 @@ Meteor.methods ({
       authorId: Meteor.userId(),
       createdAt: new Date(),
       likes: [],
-      likesCount: 0
+      likesCount: 0,
+      image
     }
+
     Posts.insert(post)
   },
   'posts.remove'(_id) {

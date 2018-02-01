@@ -15,11 +15,12 @@ export default withTracker(props => {
     (name, text) => Meteor.call('posts.update', _id, name, text) : false
 
   const handleInsert = Meteor.userId() ?
-    (name, text) => Meteor.call('posts.insert', name, text) : false
+    (name, text, image) => Meteor.call('posts.insert', name, text, image) : false
 
   return {
     name: post ? post.name : '',
     text: post ? post.text : '',
+    image: post ? post.image : '',
     currentUser: Meteor.user(),
     handleSave: handleUpdate || handleInsert
   }

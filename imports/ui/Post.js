@@ -9,10 +9,9 @@ import FaEdit from 'react-icons/lib/fa/edit'
 import FaTrashO from 'react-icons/lib/fa/trash-o'
 import FaHeart from 'react-icons/lib/fa/heart'
 
-let countLikes = 0
-const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handleLike, handleUpdate, likesCount }) => (
+const Post = ({ _id, name, text, image, createdAt, authorId, liked, handleRemove, handleLike, handleUpdate, likesCount }) => (
     <div className="card mt-5 row" >
-        {/* <img className="card-img-top" src='' alt="Card image cap"/> */}
+        <img className="card-img-top" id='output-img' src={image} alt="Card image cap"/>
         <div className="card-body">
             <h5 className="card-title">{name}</h5>
             <p className="card-text">{text}</p>

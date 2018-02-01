@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import UploadFile from './UploadFile'
+
 class PostForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { name: '', text: '' }
+    this.state = { name: '', text: '', image: '' }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -13,9 +15,9 @@ class PostForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.handleSave(this.state.name, this.state.text)
+    this.props.handleSave(this.state.name, this.state.text, this.state.image)
     this.props.history.push('/')
-    this.setState({ name: '', text: '' })
+    this.setState({ name: '', text: '', image: '' })
   }
 
   handleNameChange(event) {
@@ -28,6 +30,10 @@ class PostForm extends Component {
     event.preventDefault()
     const text = event.target.value
     this.setState({ text })
+  }
+
+  setImage(image) {
+    this.setState({ image: image }, () => console.log('Image: ', this.state.image))
   }
 
   render() {
@@ -49,6 +55,9 @@ class PostForm extends Component {
                     placeholder="Digite sua mensagem aqui...">
                 </textarea>
             </div>
+
+            <UploadFile image={this.props.image} setImage={this.setImage.bind(this)}/>
+
             <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
