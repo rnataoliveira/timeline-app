@@ -6,28 +6,8 @@ import PropTypes from 'prop-types'
 class CreatePost extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            text: '',
-            name: ''
-        }
+        this.state = { text: '', name: '' }
     }
-
-    // handleTextUpdate(event) {
-    //     event.preventDefault()
-    //     event.setState({ text: Posts.text })
-        
-    // }
-
-    // handleNameUpdate() {
-    //     event.preventDefault()
-    //     event.setState({ name: Posts.name })
-    // }
-    
-    // handleUpdateSubmit() {
-    //     const Post = ({ _id, name, text, createdAt, authorId, handleUpdate }) => (
-    //         handleUpdate
-    //     )
-    // }
 
     handleTextChange(event) {
         event.preventDefault()

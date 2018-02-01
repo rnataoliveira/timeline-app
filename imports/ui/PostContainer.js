@@ -16,14 +16,13 @@ export default withTracker(props => {
   const liked = Meteor.userId() ?
     likes.some(like => like.authorId === Meteor.userId() && like.liked) : false
 
-  const handleUpdate = Meteor.userId() === authorId ?
-    () => Meteor.call('posts.update', props._id) : false
+  const handleUpdate = Meteor.userId() && Meteor.userId() === authorId
 
   return {
     ...props,
     handleRemove,
     handleLike,
-    handleUpdate,
-    liked
+    liked,
+    handleUpdate
   }
 })(Post)

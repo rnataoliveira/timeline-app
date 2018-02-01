@@ -4,21 +4,25 @@ import { withTracker } from 'meteor/react-meteor-data'
 
 import PostsContainer from './PostsContainer'
 import CreatePost from './CreatePost'
+import PostForm from './PostForm'
+import PostFormContainer from './PostFormContainer'
 import { Posts } from '../api/posts'
 import UpdatePost from './UpdatePost'
 
 import AccountUIWrapper from './AccountsUIWrapper'
-// import { Router, Route, Link, hashHistory } from 'react-router'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 const App = props => (
-    <div className="container">
-        {/* <Router history={hashHistory}>
-            <Route path='/update/:_id' component={UpdatePost} />
-        </Router> */}
-        <AccountUIWrapper />
-        <CreatePost currentUser={props.currentUser}/>
-        <PostsContainer />
-    </div>
+    <BrowserRouter>
+        <div className="container">
+            <AccountUIWrapper />
+            <Switch>
+                <Route exact path="/" component={PostFormContainer} />
+                <Route path="/update/:_id" component={PostFormContainer}/>
+            </Switch>
+            <PostsContainer />
+        </div>
+    </BrowserRouter>
 )
 
 export default withTracker(() => (

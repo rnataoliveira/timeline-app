@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom'
 import { Meteor } from 'meteor/meteor'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-// import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaTrashO from 'react-icons/lib/fa/trash-o'
 import FaHeart from 'react-icons/lib/fa/heart'
 
 let countLikes = 0
-const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handleLike, handleUpdate, likesQuantity }) => (
+const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handleLike, handleUpdate, likesCount }) => (
     <div className="card mt-5 row" >
         {/* <img className="card-img-top" src='' alt="Card image cap"/> */}
         <div className="card-body">
@@ -19,11 +19,9 @@ const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handl
         </div>
         <div className="card-body">
             {handleUpdate &&
-            <a className="card-link btn btn-primary sm col-md-2"
-                href={`${_id}`}
-                onClick={handleUpdate}>
+            <Link className="card-link btn btn-primary sm col-md-2" to={`/update/${_id}`}>
                 <FaEdit /> 
-            </a>}
+            </Link>}
             
             {handleRemove && 
             <button className="card-link btn btn-primary sm col-md-2" 
@@ -34,7 +32,7 @@ const Post = ({ _id, name, text, createdAt, authorId, liked, handleRemove, handl
             {handleLike && 
             <button className="card-link btn btn-primary sm col-md-2"
                 onClick={handleLike}>
-                <FaHeart /> {liked ? 'Unlike' : 'Like' }
+                <FaHeart /> {liked ? 'Unlike' : `Like ${likesCount}` }
             </button>
             }
         </div>

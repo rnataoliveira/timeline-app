@@ -10,7 +10,7 @@ Meteor.startup(() => {
 });
 
 Meteor.methods ({
-  'posts.insert'(text, name) {
+  'posts.insert'(name, text) {
     check(text, String)
     check(name, String)
 
@@ -22,7 +22,8 @@ Meteor.methods ({
       name,
       authorId: Meteor.userId(),
       createdAt: new Date(),
-      likes: []
+      likes: [],
+      likesCount: 0
     }
     Posts.insert(post)
   },
@@ -38,44 +39,35 @@ Meteor.methods ({
 
     const post = Posts.findOne(_id)
 
-    // if(!post.likes.some(like => like.authorId === authorId))
-    //   totalLikes += 1
-    //   Posts.update(_id, {$push: {likes: [...post.likes, {authorId, liked}]}})
-    // else
-    //   Posts.update(_id, {$push: { ...post, likes: post.likes.map(like =>
-    //     like.authorId === authorId ?
-    //     { authorId, liked: !like.liked } : like)}})
-
-
     if(!post.likes.some(like => like.authorId === authorId))
-      return Posts.update(_id, { 
-        ...post, 
-        likes: [...post.likes, { authorId, liked: true }] 
-      })
-    else
       return Posts.update(_id, 
-        { ...post,
-          likes: post.likes.map(like => 
-            like.authorId === authorId ? 
-            { authorId, liked: !like.liked } : like
-          ) 
+        { 
+          $push: { likes: { authorId, liked: true } },
+          $set: { likesCount: post.likesCount + 1 }
         })
+    else {
+      const liked = !post.likes.find(like => like.authorId === authorId).liked
+      
+      return Posts.update(
+        { _id: _id, likes: { $elemMatch: { authorId }} }, 
+        { 
+          $set: { 
+            'likes.$.liked': liked,
+            likesCount: post.likesCount === 0 ? 0 : 
+              liked ? 
+              post.likesCount + 1 : post.likesCount - 1
+          } }
+      )
+    }
   },
-  'posts.update'(_id, newText, newName) {
+  'posts.update'(_id, name, text) {
     check(_id, String)
-    check(newText, String)
-    check(newName, String)
+    check(name, String)
+    check(text, String)
   
     const post = Posts.findOne(_id)
 
-    Posts.update(_id,
-      { $set: 
-        {
-          text: newText,
-          name: newName
-        }
-      })
-
+    return Posts.update(_id, { $set: { name, text } })
   }
 })
 
